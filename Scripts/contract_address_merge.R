@@ -1,6 +1,6 @@
 #set working-directory
 library(here)
-here("/Users/cristinapozzoli/Desktop/Behavelab/ERC20-stablecoins")
+here()
 
 #import dataset
 df <- read.csv("token_transfers_V3.0.0.csv", colClasses = c("character"))
