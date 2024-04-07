@@ -17,6 +17,6 @@ combined_address_dict[, id := seq_len(nrow(combined_address_dict))]
 
 
 # Save dictionaries as csv files
-write.csv(from_address_dict, "from_address_dict.csv", row.names = FALSE)
+write.csv(contract_address_dict, "contract_address_dict.csv", row.names = FALSE)
 
 write.csv(combined_address_dict, "combined_address_dict.csv", row.names = FALSE)
