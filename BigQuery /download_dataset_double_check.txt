@@ -1,0 +1,199 @@
+-- DAI
+SELECT 
+   token_address,
+    from_address,
+    to_address,
+    block_timestamp,
+    value,
+    block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` 
+WHERE 
+    token_address = '0x6b175474e89094c44da98b954eedeac495271d0f'
+    AND block_timestamp >= TIMESTAMP("2022-04-01 11:10:21", "UTC")
+    AND block_timestamp <= TIMESTAMP("2022-11-01 04:53:59", "UTC")
+
+
+-- LUNA
+
+SELECT 
+   token_address,
+    from_address,
+    to_address,
+    block_timestamp,
+    value,
+    block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` 
+WHERE 
+    token_address = '0xd2877702675e6ceb975b4a1dff9fb7baf4c91ea9'
+    AND block_timestamp >= TIMESTAMP("2022-04-01 11:10:21", "UTC")
+    AND block_timestamp <= TIMESTAMP("2022-11-01 04:53:59", "UTC")
+
+
+-- UST 
+
+SELECT 
+   token_address,
+    from_address,
+    to_address,
+    block_timestamp,
+    value,
+    block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` 
+WHERE 
+    token_address = '0xa47c8bf37f92abed4a126bda807a7b7498661acd'
+    AND block_timestamp >= TIMESTAMP("2022-04-01 11:10:21", "UTC")
+    AND block_timestamp <= TIMESTAMP("2022-11-01 04:53:59", "UTC")
+
+
+
+
+ -- PAX
+
+SELECT 
+   token_address,
+    from_address,
+    to_address,
+    block_timestamp,
+    value,
+    block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` 
+WHERE 
+    token_address = '0x8e870d67f660d95d5be530380d0ec0bd388289e1'
+    AND block_timestamp >= TIMESTAMP("2022-04-01 11:10:21", "UTC")
+    AND block_timestamp <= TIMESTAMP("2022-11-01 04:53:59", "UTC")
+
+
+-- USDT 
+
+SELECT 
+   token_address,
+    from_address,
+    to_address,
+    block_timestamp,
+    value,
+    block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` 
+WHERE 
+    token_address = '0xdac17f958d2ee523a2206206994597c13d831ec7'
+    AND block_timestamp >= TIMESTAMP("2022-04-01 11:10:21", "UTC")
+    AND block_timestamp <= TIMESTAMP("2022-06-01 04:53:59", "UTC")
+
+
+
+SELECT 
+    token_address,
+    from_address,
+    to_address,
+    block_timestamp,
+    value,
+    block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` 
+WHERE 
+    token_address = '0xdac17f958d2ee523a2206206994597c13d831ec7'
+    AND block_timestamp >= TIMESTAMP("2022-06-01 04:53:59", "UTC")
+    AND block_timestamp <= TIMESTAMP("2022-08-01 04:53:59", "UTC")
+
+
+
+SELECT 
+    token_address,
+    from_address,
+    to_address,
+    block_timestamp,
+    value,
+    block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` 
+WHERE 
+    token_address = '0xdac17f958d2ee523a2206206994597c13d831ec7'
+    AND block_timestamp >= TIMESTAMP("2022-08-01 04:53:59", "UTC")
+    AND block_timestamp <= TIMESTAMP("2022-10-01 04:53:59", "UTC")
+
+
+
+SELECT 
+    token_address,
+    from_address,
+    to_address,
+    block_timestamp,
+    value,
+    block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` 
+WHERE 
+    token_address = '0xdac17f958d2ee523a2206206994597c13d831ec7'
+    AND block_timestamp >= TIMESTAMP("2022-10-01 04:53:59", "UTC")
+    AND block_timestamp <= TIMESTAMP("2022-11-01 04:53:59", "UTC")
+
+
+
+-- USDC
+
+SELECT 
+   token_address,
+    from_address,
+    to_address,
+    block_timestamp,
+    value,
+    block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` 
+WHERE 
+    token_address = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+    AND block_timestamp >= TIMESTAMP("2022-04-01 11:10:21", "UTC")
+    AND block_timestamp <= TIMESTAMP("2022-07-01 04:53:59", "UTC")
+
+
+SELECT 
+   token_address,
+    from_address,
+    to_address,
+    block_timestamp,
+    value,
+    block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` 
+WHERE 
+    token_address = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+    AND block_timestamp >= TIMESTAMP("2022-07-01 04:53:59", "UTC")
+    AND block_timestamp <= TIMESTAMP("2022-08-01 04:53:59", "UTC")
+
+
+SELECT 
+   token_address,
+    from_address,
+    to_address,
+    block_timestamp,
+    value,
+    block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` 
+WHERE 
+    token_address = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+    AND block_timestamp >= TIMESTAMP("2022-08-01 04:53:59", "UTC")
+    AND block_timestamp <= TIMESTAMP("2022-09-01 04:53:59", "UTC")
+
+
+
+
+SELECT 
+   token_address,
+    from_address,
+    to_address,
+    block_timestamp,
+    value,
+    block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` 
+WHERE 
+    token_address = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+    AND block_timestamp >= TIMESTAMP("2022-09-01 04:53:59", "UTC")
+    AND block_timestamp <= TIMESTAMP("2022-11-01 04:53:59", "UTC")
+
+

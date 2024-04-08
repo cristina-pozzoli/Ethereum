@@ -1,0 +1,21 @@
+SELECT 
+    t2.token_address,
+    t2.from_address,
+    t2.to_address,
+    t2.block_timestamp,
+    t2.value,
+    t2.block_number
+FROM 
+    `bigquery-public-data.crypto_ethereum.token_transfers` AS t2
+JOIN 
+    (SELECT 
+         address 
+     FROM 
+         `bigquery-public-data.crypto_ethereum.amended_tokens`
+     WHERE 
+         symbol IN ('USDT', 'USDC', 'DAI', 'UST', 'USDP', 'WLUNA')) AS t1
+ON 
+    t1.address = t2.token_address
+WHERE 
+    t2.block_timestamp >= TIMESTAMP("2022-04-01 11:10:21", "UTC")
+    AND t2.block_timestamp <= TIMESTAMP("2022-11-01 04:53:59", "UTC")
