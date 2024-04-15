@@ -10,6 +10,8 @@ library(dplyr)
 library(ggplot2)
 library(sna)
 
+# Per ottimizzare consumo ram potresti dividere il dataset iniziale in 6 separati files e/o sovrascrivere df una volta filtrato.
+
 df <- fread("token_transfers_dict.csv")
 
 ### USDT ----
@@ -25,7 +27,7 @@ edges <- USDT[, 2:3]
 
 vertices <- unique(c(as.character(USDT$from_address_id), as.character(USDT$to_address_id)))
 
-USDT_net <- graph_from_data_frame(edges, directed = TRUE, vertices = vertices)
+USDT_net <- graph_from_data_frame(edges, directed = TRUE, vertices = vertices) # vertices=vertices non dovrebbe essere necessario se può servire a ridurre temp di calcolo
 
 
 #edge attributes ----
@@ -80,7 +82,9 @@ betweenness_centrality1 <- igraph::betweenness(USDT_net)
 which(betweennes_centrality1 == max(betweenness_centrality1))
 
 #Transitivity ----
-transitivity(USDT_net, type = "global")
+transitivity(USDT_net, type = "global") 
+transitivity(USDT_net, type = "average") # prova così
+ 
 
 # 0.00001583414
 #low level of clustering 
@@ -174,7 +178,7 @@ which(outdegree_centrality2 == max(outdegree_centrality2))
 
 #Transitivity ----
 transitivity(USDC_net, type = "global")
-
+transitivity(USDC_net, type = "average") # prova così
 #0.0000503989
 #low level of clustering 
 
@@ -267,7 +271,7 @@ which(outdegree_centrality3 == max(outdegree_centrality3))
 
 #Transitivity ----
 transitivity(USDP_net, type = "global")
-
+transitivity(USDP_net, type = "average") # prova così
 #0.002485692
 #low level of clustering 
 
@@ -361,7 +365,7 @@ which(outdegree_centrality4 == max(outdegree_centrality4))
 
 #Transitivity ----
 transitivity(DAI_net, type = "global")
-
+transitivity(DAI_net, type = "average") # prova così
 #0.000348559
 #low level of clustering 
 
@@ -455,7 +459,7 @@ which(outdegree_centrality5 == max(outdegree_centrality5))
 
 #Transitivity ----
 transitivity(WLUNA_net, type = "global")
-
+transitivity(WLUNA_net, type = "average") # prova così
 # 0.0000894983
 #low level of clustering 
 
@@ -548,7 +552,7 @@ which(outdegree_centrality6 == max(outdegree_centrality6))
 
 #Transitivity ----
 transitivity(UST_net, type = "global")
-
+transitivity(UST_net, type = "average") # prova così
 #0.0001405661
 #low level of clustering 
 
@@ -640,7 +644,7 @@ which(outdegree_centrality7 == max(outdegree_centrality7))
 
 #Transitivity ----
 transitivity(df_net, type = "global")
-
+transitivity(df_net, type = "average") # prova così
 # 0.00002024167
 #low level of clustering 
 
