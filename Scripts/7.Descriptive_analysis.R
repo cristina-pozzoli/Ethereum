@@ -67,7 +67,7 @@ USDT_tblgr <- USDT_tblgr %>%
   )
 
 
-indegree_centrality1 <- igraph::degree(USDT_net, mode = "in")
+indegree_centrality1 <- igraph::degree(USDT_net, mode = "in") 
 which(indegree_centrality1 == max(indegree_centrality1))
 
 outdegree_centrality1 <- igraph::degree(USDT_net, mode = "out")
@@ -75,6 +75,36 @@ which(outdegree_centrality1 == max(outdegree_centrality1))
 
 #nodes 1079552 and 814 have highest indegree centrality, nodes 4469565 2241 highest outdegree
 
+#------------------------------------------------------------------------------------------#
+# To compute weighted strenght and more in general to plot degree distributions (maybe there's a better way, but this works)
+# This can be done also without weights to plot the not-weighted degree distribution
+in_degree <- strength(
+  net1,
+  vids = V(USDT_net),
+  mode = "in",
+  weights = E(net1)$weight # use here the name of the weights
+)
+
+# Basically this put in a data.frame the results above
+in_degree <- data.frame(
+  in_degree = in_degree) %>%
+  rownames_to_column()  
+
+# Create a sort of contingency table to get the frequencies of each in-degree value occurrence
+# In case of problem with chr etc use the second line below
+
+in_degree <- as.data.frame(table(in_degree$in_degree)) %>% rename(in_degree=Var1)
+in_degree$in_degree <- as.numeric(as.character(in_degree$in_degree))
+
+plot1 <- in_degree %>%
+  ggplot( aes(x = in_degree, y = Freq))+
+  geom_point(aes(y = Freq), color = "blue4") +
+  scale_x_continuous(" In-degree") +
+  scale_y_continuous("Frequency") +
+  ggtitle(paste0(year," In-degree Distribution, weighted by value of the transaction")) +
+  theme_bw()
+
+#------------------------------------------------------------------------------------------#
 
 #betweenness 
 
