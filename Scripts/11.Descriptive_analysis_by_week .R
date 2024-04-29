@@ -49,7 +49,7 @@ ggplot(WLUNA_stats, aes(x = week, y = indegree)) +
 WLUNA_stats$log_weighted_indegree <- log10(as.numeric(WLUNA_stats$weighted_indegree))
 
 ggplot(WLUNA_stats, aes(x = week, y = log_weighted_indegree)) +
-  geom_line() +
+  geom_point() +
   geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
   labs(title = "Weighted indegree by week",
        x = "Week",
@@ -127,6 +127,25 @@ ggplot(WLUNA_stats, aes(x = week, y = transitivity_average_w)) +
   theme_minimal()
 
 
+#Combined plot
+
+WLUNA_long <- WLUNA_stats %>%
+  pivot_longer(cols = c(transitivity_global, transitivity_average, transitivity_global_w, transitivity_average_w), 
+               names_to = "transitivity_type", 
+               values_to = "transitivity_value")
+
+# Plot
+ggplot(WLUNA_long, aes(x = week, y = transitivity_value, color = transitivity_type)) +
+  geom_line() +
+  facet_wrap(~ transitivity_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Clustering coefficient by week",
+       x = "Week",
+       y = "Values") +
+  theme_minimal()
+
+
+
 ### Assortativity ----
 
 ggplot(WLUNA_stats, aes(x = week, y = assortativity)) +
@@ -180,6 +199,24 @@ ggplot(WLUNA_stats, aes(x = week, y = assortativity_out_w)) +
   theme_minimal()
 
 
+#Combined plot 
+
+WLUNA_long2 <- WLUNA_stats %>%
+  pivot_longer(cols = c(assortativity, assortativity_in, assortativity_out, assortativity_in_w, assortativity_out_w), 
+               names_to = "assortativity_type", 
+               values_to = "assortativity_value")
+
+# Plot
+ggplot(WLUNA_long2, aes(x = week, y = assortativity_value, color = assortativity_type)) +
+  geom_line() +
+  facet_wrap(~ assortativity_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Assortativity by week",
+       x = "Week",
+       y = "Values") +
+  theme_minimal()
+
+
 ### Dyad census ----
 
 #Mutual
@@ -211,6 +248,26 @@ ggplot(WLUNA_stats, aes(x = week, y = dyad_null)) +
        x = "Week",
        y = "Number of null vertices") +
   theme_minimal()
+
+
+#Combined plot
+
+WLUNA_long3 <- WLUNA_stats %>%
+  pivot_longer(cols = c(dyad_mut, dyad_asym, dyad_null), 
+               names_to = "dyad_type", 
+               values_to = "dyad_value")
+
+# Plot
+ggplot(WLUNA_long3, aes(x = week, y = dyad_value, color = dyad_type)) +
+  geom_line() +
+  facet_wrap(~ dyad_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Dyad census by week",
+       x = "Week",
+       y = "Values") +
+  theme_minimal()
+
+
 
 
 ###Triad census ----
@@ -365,18 +422,24 @@ ggplot(WLUNA_stats, aes(x = week, y = pvalue_out_w)) +
   theme_minimal()
 
 
-WLUNA <- WLUNA_stats %>%
-  gather(key = "p_value_type", value = "p_value", 
-         pvalue_in, pvalue_out, pvalue_in_w, pvalue_out_w)
+#Combined plot 
 
-ggplot(WLUNA, aes(x = week, y = p_value)) +
+WLUNA_long4 <- WLUNA_stats %>%
+  pivot_longer(cols = c(pvalue_in, pvalue_out, pvalue_in_w, pvalue_out_w), 
+               names_to = "pvalue_type", 
+               values_to = "pvalue_value")
+
+# Plot
+ggplot(WLUNA_long4, aes(x = week, y = pvalue_value, color = pvalue_type)) +
   geom_line() +
+  facet_wrap(~ pvalue_type, scales = "free_y", ncol = 2) +
   geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
-  labs(title = "Distribution of p-values by week",
+  labs(title = "Pvalue by week",
        x = "Week",
-       y = "Density") +
-  facet_wrap(~ p_value_type, scales = "free_y", ncol = 2) +
+       y = "Values") +
   theme_minimal()
+
+
 
 ###Gini-index ----
 
@@ -408,6 +471,24 @@ ggplot(WLUNA_stats, aes(x = week, y = gini_index_strong)) +
   labs(title = "Gini-index strong by week",
        x = "Week",
        y = "Gini-index strong") +
+  theme_minimal()
+
+
+#Combined plot 
+
+WLUNA_long5 <- WLUNA_stats %>%
+  pivot_longer(cols = c(gini_index, gini_index_weak, gini_index_strong), 
+               names_to = "gini_type", 
+               values_to = "gini_value")
+
+# Plot
+ggplot(WLUNA_long5, aes(x = week, y = gini_value, color = gini_type)) +
+  geom_line() +
+  facet_wrap(~ gini_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Gini index by week",
+       x = "Week",
+       y = "Values") +
   theme_minimal()
 
 
