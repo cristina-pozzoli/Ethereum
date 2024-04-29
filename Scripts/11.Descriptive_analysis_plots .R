@@ -1621,6 +1621,16 @@ ggplot(USDP_stats, aes(x = week, y = n_edges)) +
   theme_minimal()
 
 
+week_colors <- c("18" = "red", "19" = "blue", "20" = "green")
+
+ggplot(USDP_stats, aes(x = n_nodes, y = n_edges, color = factor(week))) +
+  geom_point() +
+  labs(x = "Nodes", y = "Edges") +
+  ggtitle("Nodes and edges ") +
+  scale_color_manual(values = week_colors) +
+  theme_minimal()
+
+
 ### Indegree -----
 
 ggplot(USDP_stats, aes(x = week, y = indegree)) +
@@ -1667,6 +1677,25 @@ ggplot(USDP_stats, aes(x = week, y = log_weighted_outdegree)) +
   theme_minimal()
 
 
+#Combined plot 
+
+USDP_long <- USDP_stats %>%
+  pivot_longer(cols = c(indegree, outdegree, log_weighted_indegree, log_weighted_outdegree), 
+               names_to = "degree_type", 
+               values_to = "degree_value")
+
+# Plot
+ggplot(USDP_long, aes(x = week, y = degree_value, color = degree_type)) +
+  geom_line() +
+  facet_wrap(~ degree_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Degree Centrality by Week",
+       x = "Week",
+       y = "Degree Centrality") +
+  theme_minimal()
+
+
+
 ### Clustering coefficients ----
 
 #Global transitivity 
@@ -1711,6 +1740,25 @@ ggplot(USDP_stats, aes(x = week, y = transitivity_average_w)) +
        x = "Week",
        y = "Average weighted transitivity") +
   theme_minimal()
+
+
+#Combined plot
+
+USDP_long1 <- USDP_stats %>%
+  pivot_longer(cols = c(transitivity_global, transitivity_average, transitivity_global_w, transitivity_average_w), 
+               names_to = "transitivity_type", 
+               values_to = "transitivity_value")
+
+# Plot
+ggplot(USDP_long1, aes(x = week, y = transitivity_value, color = transitivity_type)) +
+  geom_line() +
+  facet_wrap(~ transitivity_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Clustering coefficient by week",
+       x = "Week",
+       y = "Values") +
+  theme_minimal()
+
 
 
 ### Assortativity ----
@@ -1766,6 +1814,25 @@ ggplot(USDP_stats, aes(x = week, y = assortativity_out_w)) +
   theme_minimal()
 
 
+#Combined plot 
+
+USDP_long2 <- USDP_stats %>%
+  pivot_longer(cols = c(assortativity, assortativity_in, assortativity_out, assortativity_in_w, assortativity_out_w), 
+               names_to = "assortativity_type", 
+               values_to = "assortativity_value")
+
+# Plot
+ggplot(USDP_long2, aes(x = week, y = assortativity_value, color = assortativity_type)) +
+  geom_line() +
+  facet_wrap(~ assortativity_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Assortativity by week",
+       x = "Week",
+       y = "Values") +
+  theme_minimal()
+
+
+
 ### Dyad census ----
 
 #Mutual
@@ -1797,6 +1864,25 @@ ggplot(USDP_stats, aes(x = week, y = dyad_null)) +
        x = "Week",
        y = "Number of null vertices") +
   theme_minimal()
+
+
+#Combined plot
+
+USDP_long3 <- USDP_stats %>%
+  pivot_longer(cols = c(dyad_mut, dyad_asym, dyad_null), 
+               names_to = "dyad_type", 
+               values_to = "dyad_value")
+
+# Plot
+ggplot(USDP_long3, aes(x = week, y = dyad_value, color = dyad_type)) +
+  geom_line() +
+  facet_wrap(~ dyad_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Dyad census by week",
+       x = "Week",
+       y = "Values") +
+  theme_minimal()
+
 
 
 ###Triad census ----
@@ -1863,6 +1949,25 @@ ggplot(USDP_stats, aes(x = week, y = alpha_out_w)) +
        x = "Week",
        y = "Outdegree alpha weighted") +
   theme_minimal()
+
+
+#combined plot 
+
+USDP_long4 <- USDP_stats %>%
+  pivot_longer(cols = c(alpha_in, alpha_out, alpha_in_w, alpha_out_w), 
+               names_to = "alpha_type", 
+               values_to = "alpha_value")
+
+# Plot
+ggplot(USDP_long4, aes(x = week, y = alpha_value, color = alpha_type)) +
+  geom_line() +
+  facet_wrap(~ alpha_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Alpha by Week",
+       x = "Week",
+       y = "Alpha") +
+  theme_minimal()
+
 
 
 ####Xmin ----
@@ -1954,6 +2059,26 @@ ggplot(USDP_stats, aes(x = week, y = pvalue_out_w)) +
   theme_minimal()
 
 
+#Combined plot 
+
+USDP_long5 <- USDP_stats %>%
+  pivot_longer(cols = c(pvalue_in, pvalue_out, pvalue_in_w, pvalue_out_w), 
+               names_to = "pvalue_type", 
+               values_to = "pvalue_value")
+
+# Plot
+ggplot(USDP_long5, aes(x = week, y = pvalue_value, color = pvalue_type)) +
+  geom_line() +
+  facet_wrap(~ pvalue_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Pvalue by week",
+       x = "Week",
+       y = "Values") +
+  theme_minimal()
+
+
+
+
 ###Gini-index ----
 
 ggplot(USDP_stats, aes(x = week, y = gini_index)) +
@@ -1987,6 +2112,24 @@ ggplot(USDP_stats, aes(x = week, y = gini_index_strong)) +
   theme_minimal()
 
 
+#Combined plot 
+
+USDP_long6 <- USDP_stats %>%
+  pivot_longer(cols = c(gini_index, gini_index_weak, gini_index_strong), 
+               names_to = "gini_type", 
+               values_to = "gini_value")
+
+# Plot
+ggplot(USDP_long6, aes(x = week, y = gini_value, color = gini_type)) +
+  geom_line() +
+  facet_wrap(~ gini_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Gini index by week",
+       x = "Week",
+       y = "Values") +
+  theme_minimal()
+
+
 
 
 #USDC ----
@@ -2010,6 +2153,16 @@ ggplot(USDC_stats, aes(x = week, y = n_edges)) +
   labs(title = "Edges by week",
        x = "Week",
        y = "Edges") +
+  theme_minimal()
+
+
+week_colors <- c("18" = "red", "19" = "blue", "20" = "green")
+
+ggplot(USDC_stats, aes(x = n_nodes, y = n_edges, color = factor(week))) +
+  geom_point() +
+  labs(x = "Nodes", y = "Edges") +
+  ggtitle("Nodes and edges ") +
+  scale_color_manual(values = week_colors) +
   theme_minimal()
 
 
@@ -2059,6 +2212,25 @@ ggplot(USDC_stats, aes(x = week, y = log_weighted_outdegree)) +
   theme_minimal()
 
 
+#Combined plot 
+
+USDC_long <- USDC_stats %>%
+  pivot_longer(cols = c(indegree, outdegree, log_weighted_indegree, log_weighted_outdegree), 
+               names_to = "degree_type", 
+               values_to = "degree_value")
+
+# Plot
+ggplot(USDC_long, aes(x = week, y = degree_value, color = degree_type)) +
+  geom_line() +
+  facet_wrap(~ degree_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Degree Centrality by Week",
+       x = "Week",
+       y = "Degree Centrality") +
+  theme_minimal()
+
+
+
 ### Clustering coefficients ----
 
 #Global transitivity 
@@ -2102,6 +2274,26 @@ ggplot(USDC_stats, aes(x = week, y = transitivity_average_w)) +
   labs(title = "Average weighted transitivity by week",
        x = "Week",
        y = "Average weighted transitivity") +
+  theme_minimal()
+
+
+
+
+#Combined plot
+
+USDC_long1 <- USDC_stats %>%
+  pivot_longer(cols = c(transitivity_global, transitivity_average, transitivity_global_w, transitivity_average_w), 
+               names_to = "transitivity_type", 
+               values_to = "transitivity_value")
+
+# Plot
+ggplot(USDC_long1, aes(x = week, y = transitivity_value, color = transitivity_type)) +
+  geom_line() +
+  facet_wrap(~ transitivity_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Clustering coefficient by week",
+       x = "Week",
+       y = "Values") +
   theme_minimal()
 
 
@@ -2158,6 +2350,25 @@ ggplot(USDC_stats, aes(x = week, y = assortativity_out_w)) +
   theme_minimal()
 
 
+#Combined plot 
+
+USDC_long2 <- USDC_stats %>%
+  pivot_longer(cols = c(assortativity, assortativity_in, assortativity_out, assortativity_in_w, assortativity_out_w), 
+               names_to = "assortativity_type", 
+               values_to = "assortativity_value")
+
+# Plot
+ggplot(USDC_long2, aes(x = week, y = assortativity_value, color = assortativity_type)) +
+  geom_line() +
+  facet_wrap(~ assortativity_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Assortativity by week",
+       x = "Week",
+       y = "Values") +
+  theme_minimal()
+
+
+
 ### Dyad census ----
 
 #Mutual
@@ -2189,6 +2400,26 @@ ggplot(USDC_stats, aes(x = week, y = dyad_null)) +
        x = "Week",
        y = "Number of null vertices") +
   theme_minimal()
+
+
+#Combined plot
+
+USDC_long3 <- USDC_stats %>%
+  pivot_longer(cols = c(dyad_mut, dyad_asym, dyad_null), 
+               names_to = "dyad_type", 
+               values_to = "dyad_value")
+
+# Plot
+ggplot(USDC_long3, aes(x = week, y = dyad_value, color = dyad_type)) +
+  geom_line() +
+  facet_wrap(~ dyad_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Dyad census by week",
+       x = "Week",
+       y = "Values") +
+  theme_minimal()
+
+
 
 ###Power law distribution ----
 
@@ -2233,6 +2464,25 @@ ggplot(USDC_stats, aes(x = week, y = alpha_out_w)) +
        x = "Week",
        y = "Outdegree alpha weighted") +
   theme_minimal()
+
+
+#combined plot 
+
+USDC_long4 <- USDC_stats %>%
+  pivot_longer(cols = c(alpha_in, alpha_out, alpha_in_w, alpha_out_w), 
+               names_to = "alpha_type", 
+               values_to = "alpha_value")
+
+# Plot
+ggplot(USDC_long4, aes(x = week, y = alpha_value, color = alpha_type)) +
+  geom_line() +
+  facet_wrap(~ alpha_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Alpha by Week",
+       x = "Week",
+       y = "Alpha") +
+  theme_minimal()
+
 
 
 ####Xmin ----
@@ -2324,6 +2574,26 @@ ggplot(USDC_stats, aes(x = week, y = pvalue_out_w)) +
   theme_minimal()
 
 
+
+#Combined plot 
+
+USDC_long5 <- USDC_stats %>%
+  pivot_longer(cols = c(pvalue_in, pvalue_out, pvalue_in_w, pvalue_out_w), 
+               names_to = "pvalue_type", 
+               values_to = "pvalue_value")
+
+# Plot
+ggplot(USDC_long5, aes(x = week, y = pvalue_value, color = pvalue_type)) +
+  geom_line() +
+  facet_wrap(~ pvalue_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Pvalue by week",
+       x = "Week",
+       y = "Values") +
+  theme_minimal()
+
+
+
 ###Gini-index ----
 
 ggplot(USDC_stats, aes(x = week, y = gini_index)) +
@@ -2358,6 +2628,22 @@ ggplot(USDC_stats, aes(x = week, y = gini_index_strong)) +
 
 
 
+#Combined plot 
+
+USDC_long6 <- USDC_stats %>%
+  pivot_longer(cols = c(gini_index, gini_index_weak, gini_index_strong), 
+               names_to = "gini_type", 
+               values_to = "gini_value")
+
+# Plot
+ggplot(USDC_long6, aes(x = week, y = gini_value, color = gini_type)) +
+  geom_line() +
+  facet_wrap(~ gini_type, scales = "free_y", ncol = 2) +
+  geom_vline(xintercept = 19, linetype = "dashed", color = "red") +
+  labs(title = "Gini index by week",
+       x = "Week",
+       y = "Values") +
+  theme_minimal()
 
 
 
